@@ -90,7 +90,7 @@ pipeline {
 
                 echo '🧪 Wykonywanie testów API Bruno...'
 
-                bat 'call bru -env Trello run --reporter-json results.json --reporter-junit results.xml --reporter-html results.html'
+                bat 'call bru --env Trello run --reporter-json results.json --reporter-junit results.xml --reporter-html results.html'
 
             }
 
