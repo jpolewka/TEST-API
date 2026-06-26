@@ -1,0 +1,56 @@
+info:
+  name: User check
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: https://api.trello.com/1/members/:id
+  params:
+    - name: id
+      value: "{{TrelloUserName}}"
+      type: path
+  auth: inherit
+
+runtime:
+  variables:
+    - name: TrelloUN
+      value: jarekpolewka001
+  scripts:
+    - type: after-response
+      code: |-
+        const json = res.getBody({ format: "json" });
+        const expectedUsername = bru.getEnvVar("TrelloUserName");
+
+        test("Username should be 'jarekpolewka001'", () => {
+          expect(json.username).to.equal(expectedUsername);
+        });
+
+        test("Check username", () => {
+          expect(json.username).to.equal("jarekpolewka001");
+        });
+    - type: tests
+      code: |-
+        test("Test użytkownika", () => {
+          const jsonData = res.getBody({ format: "json" });
+          expect(jsonData.username).to.equal(bru.getEnvVar("TrelloUserName"));
+        });
+
+        //const expectedUsername = bru.getVar("TrelloUN");
+        //test("Test użytkownika", () => {
+        //  const jsonData = res.getBody({ format: "json" });
+        //  expect(jsonData.username).to.equal(expectedUsername);
+        //});
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.username
+      operator: eq
+      value: "{{TrelloUserName}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

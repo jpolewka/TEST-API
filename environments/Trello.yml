@@ -1,0 +1,8 @@
+name: Trello
+variables:
+  - name: TrelloUserName
+    value: jarekpolewka001
+  - name: APIKey
+    value: 3c81523e9d4d545a48a1f57179fb6d34
+  - name: APIToken
+    value: ATTAdc4dd732ff76ec2b418fd1e08ae0b7285c84e99ef29ac05b190a7ab07363104550397BA8

@@ -1,0 +1,36 @@
+info:
+  name: Create Board
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: https://api.trello.com/1/boards/?name=JarekBoard&key=3c81523e9d4d545a48a1f57179fb6d34&token=ATTAdc4dd732ff76ec2b418fd1e08ae0b7285c84e99ef29ac05b190a7ab07363104550397BA8
+  params:
+    - name: name
+      value: JarekBoard
+      type: query
+    - name: key
+      value: 3c81523e9d4d545a48a1f57179fb6d34
+      type: query
+    - name: token
+      value: ATTAdc4dd732ff76ec2b418fd1e08ae0b7285c84e99ef29ac05b190a7ab07363104550397BA8
+      type: query
+  auth: inherit
+
+runtime:
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.id
+        method: jsonq
+      variable:
+        name: boardId
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
